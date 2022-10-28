@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contoh Form dengan WTForms untuk Validasi</title>
+</head>
+<body>
+  <h2>Contoh Form dengan WTForms untuk Validasi</h2>
+  {% macro showerror(field) %}
+    {% if errors %}
+      {% for t in errors %}
+        {% if field in t[0] %}
+          <span style="color: red; font-size: 12px;">{{ t[1][0] }}</span>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endmacro %} 
+  
+  <form method="post">
+    {{ form.csrf_token }}
+
+    {{ form.nama.label }} <br />
+    {{ form.nama() }} {{ showerror('nama') }} <br />
+    {{ form.email.label }} <br />
+    {{ form.email() }} {{ showerror('email') }} <br />
+    {{ form.url.label }} <br />
+    {{ form.url() }} {{ showerror('url') }} <br />
+    {{ form.komentar.label }} <br />
+    {{ form.komentar() }} {{ showerror('komentar') }} <br />
+    <p>{{ form.submit() }}</p>
+  </form>
+</body>
+</html>
